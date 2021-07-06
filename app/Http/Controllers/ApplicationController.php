@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
-class RequestController extends Controller
+class ApplicationController extends Controller
 {
     public function saveItems( Request $request){
         if( sizeof( $request->items ) > 0 ){
@@ -798,6 +798,12 @@ class RequestController extends Controller
         $mpdf->WriteHTML('<div>Section 1 text</div>');
 
         $mpdf->Output('output.pdf','F');
+    }
+
+    public function test() {
+        return response()->json([
+            "test" => "Test"
+        ]);
     }
 
 }
