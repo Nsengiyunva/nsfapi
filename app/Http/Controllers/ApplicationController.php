@@ -8,7 +8,7 @@ use App\Models\DocumentFile;
 use App\Models\ProcurementItems;
 use App\Models\Remark;
 use App\User;
-use App\Models\Children;
+// use App\Models\Children;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -99,24 +99,24 @@ class ApplicationController extends Controller
 
     public function store(Request $request) {
         //capture all input field names
-        $requistion = new Application;
-        $requistion->entity_type = $request->entity_type;
-        $requistion->specify_other_type = $request->specify_other_type;
-        $requistion->name = $request->name;
+        $application = new Application;
+        $application->entity_type = $request->entity_type;
+        $application->specify_other_type = $request->specify_other_type;
+        $application->name = $request->name;
 
-        $requistion->signed = $request->signed;
-        $requistion->compliant = $request->compliant;
-        $requistion->completed = $request->completed;
-        $requistion->composition = $request->composition;
-        $requistion->calendar = $request->calendar;
-        $requistion->payment = $request->payment;
-        $requistion->any_other = $request->any_other;
+        $application->signed = $request->signed;
+        $application->compliant = $request->compliant;
+        $application->completed = $request->completed;
+        $application->composition = $request->composition;
+        $application->calendar = $request->calendar;
+        $application->payment = $request->payment;
+        $application->any_other = $request->any_other;
 
-        $requistion->save();
-        if( $requistion->id ){
+        $application->save();
+        if( $application->id ){
             return response()->json([
                 'success' => true,
-                'data' => $requistion
+                'data' => $application
             ]);
         }return response()->json([
             'success' => false,
@@ -125,7 +125,7 @@ class ApplicationController extends Controller
         
     }
     public function fetchAll(){
-       $records =  Requistion::all();
+       $records =  Application::all();
        return response()->json( $records );
     }
     public function getAll(Request $request){
@@ -178,7 +178,7 @@ class ApplicationController extends Controller
         return response()->json( $records );
     }
     public function updateItem(Request $request){
-        $record = Requistion::where('id', $request->id)->first();
+        $record = Application::where('id', $request->id)->first();
         $record->status = $request->input('status');
         $record->belongsTo = $request->input('belongsTo');
         $record->feature = !empty( $request->input('feature') ) ?  $request->input('feature') : 'requisition';
@@ -197,7 +197,7 @@ class ApplicationController extends Controller
         ]);
     }
     public function updateCashierVoucher(Request $request){
-        $record = Requistion::where('id', $request->id )->first();
+        $record = Application::where('id', $request->id )->first();
         $record->status = $request->input('status');
         $record->belongsTo = $request->input('belongsTo');
         $record->feature = !empty( $request->input('feature') ) ?  $request->input('feature') : 'requisition';
@@ -211,11 +211,11 @@ class ApplicationController extends Controller
         ]);
     }
     public function getPaymentVoucher(Request $request){
-        $records =Requistion::where('id', $request->id )->first();
+        $records =Application::where('id', $request->id )->first();
         return response()->json( $records );
     }
     public function updateRequisition(Request $request){
-        $record = Requistion::where('id', $request->id)->first();
+        $record = Application::where('id', $request->id)->first();
         $record->status = $request->input('status');
         $record->department = $request->input('department');
         $record->subject = $request->input('subject');
@@ -400,7 +400,7 @@ class ApplicationController extends Controller
     }
     public function fetchApprovedRequests(Request $request) {
         if( $request->type == "director"){
-            $records = Requistion::where('director_approved', "yes")->get();
+            $records = Application::where('director_approved', "yes")->get();
             if(!empty( $records ) ){
                 return response()->json( $records );
             }
