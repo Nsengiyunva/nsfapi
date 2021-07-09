@@ -1,0 +1,16 @@
+@url = http://127.0.0.1:8000/api
+@remote = https://lit-bastion-84733.herokuapp.com/api
+
+###
+GET {{remote}}/fetch HTTP/1.1
+Content-Type: application/json
+
+### 
+POST {{remote}}/add_application HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "King Isaac",
+    "entity_type": "School",
+    "specify_other_type": "na"
+}
